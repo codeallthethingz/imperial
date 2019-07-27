@@ -8,19 +8,20 @@ import (
 
 type example struct {
 	Input    string
-	Expected float64
+	Expected string
 }
 
 var examples = []example{
-	{Input: `1 1/2"`, Expected: 0.0381},
-	{Input: `1'`, Expected: 0.3048},
-	{Input: `1 1/2'`, Expected: 0.4572},
-	{Input: `1 1/2' 2"`, Expected: 0.4572 + 0.0508},
-	{Input: `1 1/2' 2 1/2"`, Expected: 0.4572 + 0.0635},
-	{Input: `1' 2 1/2"`, Expected: 0.3683},
-	{Input: `2 1/2"`, Expected: 0.0635},
-	{Input: `1/2"`, Expected: 0.0},
-	{Input: `32'`, Expected: 9.7536},
+	{Input: `1 1/2"`, Expected: "0.0381"},
+	{Input: `1'`, Expected: "0.3048"},
+	{Input: `1 1/2'`, Expected: "0.4572"},
+	{Input: `1 1/2' 2"`, Expected: "0.5080"},
+	{Input: `1 1/2' 2 1/2"`, Expected: "0.5207"},
+	{Input: `1' 2 1/2"`, Expected: "0.3683"},
+	{Input: `2 1/2"`, Expected: "0.0635"},
+	{Input: `1/2"`, Expected: "0.0127"},
+	{Input: `1/2'`, Expected: "0.1524"},
+	{Input: `32'`, Expected: "9.7536"},
 }
 
 func TestParse(t *testing.T) {

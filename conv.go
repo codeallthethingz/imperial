@@ -31,9 +31,9 @@ var matchers = []func(string) bool{
 // 1/2" = 0.5 inches
 // 1' = 1 foot
 // leaving out the ' or " results in an error
-func Parse(input string) (float64, error) {
+func Parse(input string) (string, error) {
 	if !isWellFormed(input) {
-		return 0, fmt.Errorf("could not parse %s, must conform to pattern 0 0/0' 0 0/0\"", input)
+		return "", fmt.Errorf("could not parse %s, must conform to pattern 0 0/0' 0 0/0\"", input)
 	}
 
 	result := float64(0)
@@ -63,11 +63,18 @@ func isWellFormed(input string) bool {
 
 func convert(input string, multiplier float64) (float64, error) {
 	input = strings.Trim(input, " ")
-	splits := strings.Split(input, " ")
-	whole, _ := strconv.ParseFloat(splits[0], 64)
+	splits := strings.SplitN(input, " ", 2)
+	whole := float64(0)
 	fraction := float64(0)
 	if len(splits) == 2 {
+		whole, _ = strconv.ParseFloat(splits[0], 64)
 		fraction = convertFraction(splits[1])
+	} else {
+		if strings.Contains(splits[0], "/") {
+			fraction = convertFraction(splits[0])
+		} else {
+			whole, _ = strconv.ParseFloat(splits[0], 64)
+		}
 	}
 
 	return whole*multiplier + fraction*multiplier, nil
@@ -80,6 +87,6 @@ func convertFraction(input string) float64 {
 	return numerator / denominator
 }
 
-func round(x, unit float64) float64 {
-	return math.Round(x/unit) * unit
+func round(x, unit float64) string {
+	return fmt.Sprintf("%.4f", math.Round(x/unit)*unit)
 }
