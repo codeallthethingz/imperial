@@ -1,4 +1,4 @@
-# Imperial conversion
+# Imperial conversion [![CircleCI](https://circleci.com/gh/codeallthethingz/imperial.svg?style=svg)](https://circleci.com/gh/codeallthethingz/imperial)
 
 Library to convert strings of imperial measurements specified in feet and inches into metric meter lengths.
 
