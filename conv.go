@@ -9,16 +9,19 @@ import (
 )
 
 var number = "\\s*[0-9]+\\s*"
-var numberAndFraction = number + "\\s*[0-9]+\\s*/\\s*[0-9]+\\s*"
+var fraction = "\\s*[0-9]+\\s*/\\s*[0-9]+\\s*"
+var numberAndFraction = number + fraction
 var matchers = []func(string) bool{
-	regexp.MustCompile("^" + number + "'$").MatchString,
-	regexp.MustCompile("^" + numberAndFraction + "'$").MatchString,
-	regexp.MustCompile("^" + number + "\"$").MatchString,
-	regexp.MustCompile("^" + numberAndFraction + "\"$").MatchString,
-	regexp.MustCompile("^" + number + "' +" + number + "\"$").MatchString,
-	regexp.MustCompile("^" + number + "' +" + numberAndFraction + "\"$").MatchString,
-	regexp.MustCompile("^" + numberAndFraction + "' +" + number + "\"$").MatchString,
-	regexp.MustCompile("^" + numberAndFraction + "' +" + numberAndFraction + "\"$").MatchString,
+	regexp.MustCompile(`^` + fraction + `"$`).MatchString,
+	regexp.MustCompile(`^` + fraction + `'$`).MatchString,
+	regexp.MustCompile(`^` + number + `'$`).MatchString,
+	regexp.MustCompile(`^` + numberAndFraction + `'$`).MatchString,
+	regexp.MustCompile(`^` + number + `"$`).MatchString,
+	regexp.MustCompile(`^` + numberAndFraction + `"$`).MatchString,
+	regexp.MustCompile(`^` + number + `' +` + number + `"$`).MatchString,
+	regexp.MustCompile(`^` + number + `' +` + numberAndFraction + `"$`).MatchString,
+	regexp.MustCompile(`^` + numberAndFraction + `' +` + number + `"$`).MatchString,
+	regexp.MustCompile(`^` + numberAndFraction + `' +` + numberAndFraction + `"$`).MatchString,
 }
 
 // Parse takes an input string and converts it to metric in the following formats

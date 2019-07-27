@@ -19,6 +19,7 @@ var examples = []example{
 	{Input: `1 1/2' 2 1/2"`, Expected: 0.4572 + 0.0635},
 	{Input: `1' 2 1/2"`, Expected: 0.3683},
 	{Input: `2 1/2"`, Expected: 0.0635},
+	{Input: `1/2"`, Expected: 0.0},
 	{Input: `32'`, Expected: 9.7536},
 }
 
@@ -58,6 +59,8 @@ func TestEdges(t *testing.T) {
 	pass(t, ` 2 2 / 3"`)
 	pass(t, `2 "`)
 	pass(t, `2' 2"`)
+	pass(t, `1/2'`)
+	pass(t, `1/2"`)
 }
 
 func fail(t *testing.T, test string) {
