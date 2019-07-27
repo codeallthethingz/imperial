@@ -61,35 +61,20 @@ func isWellFormed(input string) bool {
 func convert(input string, multiplier float64) (float64, error) {
 	input = strings.Trim(input, " ")
 	splits := strings.Split(input, " ")
-	whole, err := strconv.ParseFloat(splits[0], 64)
-	if err != nil {
-		return 0, err
-	}
+	whole, _ := strconv.ParseFloat(splits[0], 64)
 	fraction := float64(0)
 	if len(splits) == 2 {
-		fraction, err = convertFraction(splits[1])
-		if err != nil {
-			return 0, err
-		}
+		fraction = convertFraction(splits[1])
 	}
 
 	return whole*multiplier + fraction*multiplier, nil
 }
 
-func convertFraction(input string) (float64, error) {
-	if !strings.Contains(input, "/") {
-		return 0, fmt.Errorf("could not parse %s, expecting / in fractional string", input)
-	}
+func convertFraction(input string) float64 {
 	splits := strings.Split(input, "/")
-	numerator, err := strconv.ParseFloat(splits[0], 64)
-	if err != nil {
-		return 0, err
-	}
-	denominator, err := strconv.ParseFloat(splits[1], 64)
-	if err != nil {
-		return 0, err
-	}
-	return numerator / denominator, nil
+	numerator, _ := strconv.ParseFloat(splits[0], 64)
+	denominator, _ := strconv.ParseFloat(splits[1], 64)
+	return numerator / denominator
 }
 
 func round(x, unit float64) float64 {
